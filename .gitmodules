@@ -1,0 +1,3 @@
+[submodule "models/Optic-Disk-Cup-Segmentation"]
+	path = models/Optic-Disk-Cup-Segmentation
+	url = https://github.com/koriavinash1/Optic-Disk-Cup-Segmentation.git
