@@ -34,19 +34,19 @@ def train(cfg: DictConfig):
     torch.backends.cudnn.benchmark = True if torch.backends.cudnn.is_available() and cuda_available else False
     torch.set_float32_matmul_precision('high')
 
-    datamodule = GlaucomaLDM(batch_size=2, num_workers=4)
+    datamodule = GlaucomaLDM(batch_size=1, num_workers=0)
 
     model = LightningModel(model=cfg['model'], clearml_logger=task.get_logger()).to(device)
 
     # initialize checkpoint callback depending on parse arguments
-    checkpoint_callback = ModelCheckpoint(dirpath="checkpoints/", monitor="val_loss", mode="min")
+    checkpoint_callback = ModelCheckpoint(dirpath=f"checkpoints_{cfg['model']}/", monitor="val_loss", mode="min")
 
     trainer = Trainer(accelerator="gpu", max_epochs=1, profiler="simple",
                           callbacks=[checkpoint_callback, ModelSummary(4),
                                      EarlyStopping(monitor="val_loss",
                                                    mode="min",
                                                    patience=10)],
-                          strategy="auto", enable_checkpointing=True, limit_train_batches=10, limit_val_batches=10)
+                          strategy="auto", enable_checkpointing=True)
 
     trainer.fit(model=model, datamodule=datamodule)
     

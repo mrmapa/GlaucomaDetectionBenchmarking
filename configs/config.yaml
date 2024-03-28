@@ -1,6 +1,6 @@
 version: 1.3.2
 
-model: "U-Net"
+model: "Early"
 
 defaults:
   - _self_

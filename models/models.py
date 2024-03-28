@@ -176,7 +176,7 @@ class conv_relu_batchnorm_block(nn.Module):
         self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=3,
                               padding=1)
         self.relu = nn.ReLU()
-        self.batch_norm = nn.BatchNorm2d(out_channels)
+        self.batch_norm = nn.InstanceNorm2d(out_channels)
 
         if maxpool:
             self.maxpool = nn.MaxPool2d(stride=2, kernel_size=2)
@@ -210,12 +210,12 @@ class EarlyId(nn.Module):
 
         self.maxpool = nn.MaxPool2d(stride=2, kernel_size=2)
         self.avgpool = nn.AvgPool2d(stride=2, kernel_size=2)
-        self.bn1 = nn.BatchNorm2d(4)
+        self.bn1 = nn.InstanceNorm2d(4)
 
         # define fully connected layers
         self.fc1 = nn.Linear(4*64*64, 32)
         self.relu = nn.ReLU()
-        self.bn2 = nn.BatchNorm1d(32)
+        self.bn2 = nn.InstanceNorm1d(32)
         self.fc2 = nn.Linear(32, 32)
         self.dropout = nn.Dropout(p=0.5)
         self.final = nn.Linear(32, 1)
