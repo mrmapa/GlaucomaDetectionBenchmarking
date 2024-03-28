@@ -56,14 +56,11 @@ class GlaucomaDataset(Dataset):
                 ToTensorV2(p=1.0)
             ])
 
-        print(img.shape)
         if img.shape == (3, 512, 512):
             img = np.transpose(img, (1, 2, 0))
         elif img.shape == (512, 3, 512):
             img = np.transpose(img, (0, 2, 1))
-        print(img.shape)
         img = transforms(image=img)["image"]
-        print(img.shape)
 
         if list(img.shape) == [512, 3, 512]:
             img = torch.permute(img, (1, 0, 2))

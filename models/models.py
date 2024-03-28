@@ -254,7 +254,7 @@ class LightningModel(pl.LightningModule):
         if model == "U-Net":
             self.model = U_Net()
         elif model == "FCDense":
-            self.model = FCDense()
+            self.model = FCDenseModified()
         elif model == "Early":
             self.model = EarlyId()
 
@@ -287,10 +287,10 @@ class LightningModel(pl.LightningModule):
         return self.model(x)
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam()
+        optimizer = torch.optim.SGD(self.parameters(), lr=1e-3)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min")
 
-        return [optimizer], [scheduler]
+        return {"optimizer": optimizer, "lr_scheduler": {"scheduler": scheduler, "monitor": "val_loss"}}
 
     def training_step(self, batch, batch_idx):
         x, y = batch
