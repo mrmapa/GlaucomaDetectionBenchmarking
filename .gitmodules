@@ -1,3 +1,6 @@
 [submodule "models/Optic-Disk-Cup-Segmentation"]
 	path = models/Optic-Disk-Cup-Segmentation
 	url = https://github.com/koriavinash1/Optic-Disk-Cup-Segmentation.git
+[submodule "models/optic-nerve-cnn"]
+	path = models/optic-nerve-cnn
+	url = git@github.com:seva100/optic-nerve-cnn.git
