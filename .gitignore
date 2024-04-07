@@ -2,5 +2,6 @@
 data/
 models/__pycache__/
 multirun/
-checkpoints/
+checkpoints*/
 lightning_logs/
+outputs/
